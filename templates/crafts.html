@@ -47,9 +47,9 @@
     <main class="grid">
         {% if produtos %}
         {% for p in produtos %}
-        <a class="card-link" href="{{ url_for('product_page', product_name=p.name) }}" aria-label="{{ p.name }}">
+        <a class="card" href="{{ url_for('product_page', product_name=p.name) }}" aria-label="{{ p.name }}">
             <article class="card">
-                <img src="{{ url_for('static', filename=p.img if p.img else 'img/placeholder.jpg') }}"
+                <img class="album-cover" src="{{ url_for('static', filename=p.img if p.img else 'img/placeholder.jpg') }}"
                     alt="{{ p.name }}">
                 <div class="card-body">
                     <h3>{{ p.name }}</h3>

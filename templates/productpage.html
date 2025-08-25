@@ -11,13 +11,13 @@
     <meta name="theme-color" content="#111111">
     <meta name="apple-mobile-web-app-status-bar-style" content="#111111">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="/static/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
 <body>
     <div class="container">
-        <div ><a href="{{ url_for('home') }}">Início</a> / <a href="{{ url_for('crafts') }}">Produtos</a></div>
+        <div><a href="{{ url_for('home') }}">Início</a> / <a href="{{ url_for('crafts') }}">Produtos</a></div>
 
         <div class="product-card">
             {% if not_found %}

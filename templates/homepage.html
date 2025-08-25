@@ -13,124 +13,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #000000;
-            --card: #1282a2;
-            --text: #fefcfb;
-            --muted: #8d99ae;
-            --accent: #1282a2;
-            --accent2: #034078;
-            --border: #001f54;
-            --shadow: #001f54;
-        }
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            margin: 0;
-            font-family: inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-        }
-
-        .title {
-            font-size: 2.5em;
-            margin: 0;
-            color: var(--accent);
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-        }
-
-        .topbar {
-            max-width: 1000px;
-            margin: 24px auto 8px;
-            padding: 0 16px;
-        }
-
-        .topbar h1 {
-            margin: 0 0 12px;
-        }
-
-        .hint {
-            color: var(--muted);
-            margin: 10px 0 0;
-        }
-
-        .grid {
-            max-width: 1000px;
-            margin: 16px auto 64px;
-            padding: 0 16px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 14px;
-        }
-
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            box-shadow: 0 8px 32px var(--shadow);
-            border-radius: 14px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .card img,
-        .card video {
-            width: 100%;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-            display: block;
-        }
-
-        .card-body {
-            padding: 12px 12px 14px;
-            display: grid;
-            gap: 6px;
-        }
-
-        .card-body h3 {
-            margin: 0;
-            font-size: 1.4rem;
-            line-height: 1.25;
-        }
-
-        .price {
-            margin: 0;
-            font-weight: 400;
-        }
-
-        .foot {
-            max-width: 1000px;
-            margin: 0 auto 40px;
-            color: var(--muted);
-            padding: 0 16px;
-        }
-    </style>
 </head>
 
 <body>
     <header class="topbar">
-        <h1 class="title">Escolha seu universo</h1>
+        <h1 class="title">Escolha qual categoria explorar</h1>
         <p class="hint">Selecione uma categoria para explorar.</p>
     </header>
 
