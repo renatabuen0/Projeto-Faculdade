@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Músicas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Minhas Músicas</h1>
+    <form action="/musicas" method="get">
+        <input type="text" name="nome_busca" placeholder="Buscar música...">
+        <button type="submit">Buscar</button>
+    </form>
+    <p><a href="/musicas?ordenar=sim">Ordenar por Nome (Bubble Sort)</a></p>
+    <ul>
+        {% for musica in musicas %}
+            <li>
+                <strong>{{ musica.nome }}</strong> - {{ musica.artista }}
+                <br>
+                <audio controls>
+                    <source src="{{ url_for('static', filename='audio/' + musica.caminho_arquivo) }}" type="audio/mpeg">
+                    Seu navegador não suporta o áudio.
+                </audio>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/">Voltar para página inicial</a>
+    
+</body>
+</html>

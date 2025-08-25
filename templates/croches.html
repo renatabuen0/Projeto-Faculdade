@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Peças de Crochê</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Peças de Crochê</h1>
+    <form action="/croches" method="get">
+        <input type="text" name="nome_busca" placeholder="Buscar peça...">
+        <button type="submit">Buscar</button>
+    </form>
+    <ul>
+        {% for peca in croches %}
+            <li>
+                <strong>{{ peca.nome }}</strong> - {{ peca.cor }}
+            </li>
+        {% endfor %}
+        <a href="/">Voltar para página inicial</a>
+    </ul>
+</body>
+</html>
