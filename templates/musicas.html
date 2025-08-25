@@ -13,7 +13,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;
+  500;
+  700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -29,7 +31,7 @@
         <option value="nome_asc" {% if ordenacao=='nome_asc' %}selected{% endif %}>Nome A→Z</option>
         <option value="nome_desc" {% if ordenacao=='nome_desc' %}selected{% endif %}>Nome Z→A</option>
       </select> <button class="btn" type="submit">Aplicar</button> {% if q or metodo!='linear' or ordenacao!='nome_asc'
-      %} <a class="btn" style="background:#444;border:1px solid #666;" href="{{ url_for('musicas') }}"
+      %} <a class="btn" style="background:#ddd;color:#333;border:1px solid #666;" href="{{ url_for('musicas') }}"
         aria-label="Limpar filtros">Limpar</a> {% endif %} </form>
     <p class="hint">Resultados: <strong>{{ total }}</strong>{% if q %} • termo: <em>"{{ q }}"</em>{% endif %}</p>
   </header>
@@ -49,7 +51,54 @@
     <div class="track-info"> <strong id="trackTitle">Nenhuma música</strong> <span id="trackArtist"></span> </div>
     <input type="range" id="progress" value="0" min="0" max="100"> <audio id="audio"></audio>
   </div>
-  <script> const cards = document.querySelectorAll('.card'); const audio = document.getElementById('audio'); const playPause = document.getElementById('playPause'); const trackTitle = document.getElementById('trackTitle'); const trackArtist = document.getElementById('trackArtist'); const progress = document.getElementById('progress'); let currentTrack = null; cards.forEach(card => { card.addEventListener('click', () => { const src = card.dataset.src; const nome = card.dataset.nome; const artista = card.dataset.artista; if (currentTrack !== src) { currentTrack = src; audio.src = src; trackTitle.textContent = nome; trackArtist.textContent = artista; audio.play(); playPause.textContent = "⏸"; } }); }); playPause.addEventListener('click', () => { if (audio.src) { if (audio.paused) { audio.play(); playPause.textContent = "⏸"; } else { audio.pause(); playPause.textContent = "▶"; } } }); audio.addEventListener('timeupdate', () => { progress.value = (audio.currentTime / audio.duration) * 100 || 0; }); progress.addEventListener('input', () => { if (audio.duration) { audio.currentTime = (progress.value / 100) * audio.duration; } }); </script>
+  <script>
+    const cards = document.querySelectorAll('.card');
+
+    const audio = document.getElementById('audio');
+
+    const playPause = document.getElementById('playPause');
+
+    const trackTitle = document.getElementById('trackTitle');
+    const trackArtist = document.getElementById('trackArtist');
+    const progress = document.getElementById('progress');
+    let currentTrack = null;
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const src = card.dataset.src;
+        const nome = card.dataset.nome;
+        const artista = card.dataset.artista;
+        if (currentTrack !== src) {
+          currentTrack = src;
+          audio.src = src;
+          trackTitle.textContent = nome;
+          trackArtist.textContent = artista;
+          audio.play();
+          playPause.textContent = "⏸";
+
+        }
+      });
+    });
+    playPause.addEventListener('click', () => {
+      if (audio.src) {
+        if (audio.paused) {
+          audio.play();
+          playPause.textContent = "⏸";
+
+        } else {
+          audio.pause();
+          playPause.textContent = "▶";
+        }
+      }
+    });
+    audio.addEventListener('timeupdate', () => {
+      progress.value = (audio.currentTime / audio.duration) * 100 || 0;
+    });
+    progress.addEventListener('input', () => {
+      if (audio.duration) {
+        audio.currentTime = (progress.value / 100) * audio.duration;
+      }
+    });
+  </script>
 </body>
 
 </html>
