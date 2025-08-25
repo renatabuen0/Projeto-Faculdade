@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <title>Crafts • Busca & Ordenação</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/static/style.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet" />
+
+</head>
+
+<body>
+    <header class="topbar">
+        <h1 class="title">Crafts</h1>
+
+        <form class="controls" method="get" action="{{ url_for('crafts') }}">
+            <input type="text" name="q" placeholder="Pesquisar por name..." value="{{ q }}">
+            <select name="metodo" aria-label="Método de busca">
+                <option value="linear" {% if metodo=='linear' %}selected{% endif %}>Busca Linear (exato)</option>
+                <option value="binaria" {% if metodo=='binaria' %}selected{% endif %}>Busca Binária (exato)</option>
+            </select>
+            <select name="ordenacao" aria-label="Ordenação">
+                <option value="price_asc" {% if ordenacao=='price_asc' %}selected{% endif %}>Preço ↑ (Bubble)</option>
+                <option value="price_desc" {% if ordenacao=='price_desc' %}selected{% endif %}>Preço ↓ (Bubble)</option>
+                <option value="name_asc" {% if ordenacao=='name_asc' %}selected{% endif %}>name A→Z</option>
+                <option value="name_desc" {% if ordenacao=='name_desc' %}selected{% endif %}>name Z→A</option>
+            </select>
+            <button type="submit">Aplicar</button>
+        </form>
+
+        <p class="hint">
+            Resultados: <strong>{{ total }}</strong>
+            {% if q %} • termo: <em>"{{ q }}"</em>{% endif %}
+        </p>
+    </header>
+
+    <main class="grid">
+        {% if produtos %}
+        {% for p in produtos %}
+        <a class="card-link" href="{{ url_for('product_page', product_name=p.name) }}" aria-label="{{ p.name }}">
+            <article class="card">
+                <img src="{{ url_for('static', filename=p.img if p.img else 'img/placeholder.jpg') }}"
+                    alt="{{ p.name }}">
+                <div class="card-body">
+                    <h3>{{ p.name }}</h3>
+                    <p class="price">R$ {{ "%.2f"|format(p.price or 0) }}</p>
+                </div>
+            </article>
+        </a>
+        {% endfor %}
+        {% else %}
+        <p class="empty">Nada encontrado. Tente o name completo (match exato) ou mude o método.</p>
+        {% endif %}
+    </main>
+
+    <footer class="foot">
+        <small>Linear/Binária = match exato • Bubble Sort nos preços</small>
+    </footer>
+</body>
+
+</html>

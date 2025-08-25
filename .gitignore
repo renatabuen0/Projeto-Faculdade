@@ -1,0 +1,41 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos de ambiente virtual
+venv/
+.env/
+.venv/
+
+# Dependências e pacotes
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Arquivos temporários
+*.log
+*.pot
+*.pyc
+*.pyo
+*.tmp
+*.swp
+
+# Configurações locais
+*.sqlite3
+instance/
+*.db
+
+# IDEs / Editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# WSL / Linux
+.cache/

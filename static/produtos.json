@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Bolsa Hello Kitty",
+        "price": 200.0,
+        "img": "img/bolsa.jpg",
+        "description": "Uma bolsa estilosa da Hello Kitty."
+    },
+    {
+        "name": "Vestido Franjas",
+        "price": 400.0,
+        "img": "img/vestido-franja.jpg",
+        "description": "Um vestido com franjas estiloso."
+    },
+    {
+        "name": "Top Franjas",
+        "price": 140.0,
+        "img": "img/top-franja.jpg",
+        "description": "Um top com franjas estiloso."
+    },
+    {
+        "name": "Touca Cat",
+        "price": 170.0,
+        "img": "img/touca.jpg",
+        "description": "Uma touca estilosa da Hello Kitty."
+    },
+    {
+        "name": "Top Flor",
+        "price": 100.0,
+        "img": "img/top-flor.jpg",
+        "description": "Um top com estampa de flores."
+    },
+    {
+        "name": "Square Sol",
+        "price": 50.0,
+        "img": "img/square-sol.jpg",
+        "description": "Um square com estampa de sol."
+    }
+]

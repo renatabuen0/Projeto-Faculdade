@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto: {{ product_name }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="/crafts">← Voltar para lista</a> / <span>{{ product_name }}</span>
+        </nav>
+        <div class="product-card">
+            {% if not_found %}
+            <div class="not-found">
+                <h1>Produto não encontrado</h1>
+                <p>O produto <b>{{ product_name }}</b> não foi localizado.</p>
+                <a href="/crafts" class="buy-btn" style="background:#888;">Voltar</a>
+            </div>
+            {% else %}
+            <div class="product-image-wrap">
+                <img src="{{ url_for('static', filename=product_img) if product_img else 'https://via.placeholder.com/400x400?text=' + product_name }}"
+                    alt="Imagem de {{ product_name }}" class="product-image">
+            </div>
+            <div class="product-info">
+                <h1 class="product-title">{{ product_name }}</h1>
+                <div class="product-description">
+                    <p>{{ product_desc }}</p>
+                </div>
+                <div class="product-price">R$ {{ '%.2f'|format(product_price) }}</div>
+                <button class="buy-btn">Comprar agora</button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
