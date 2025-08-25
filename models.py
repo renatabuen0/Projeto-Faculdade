@@ -19,8 +19,6 @@ try:
         musicas = json.load(f)
     if not isinstance(musicas, list):
         musicas = []
-    
-    print(musicas)
 except (FileNotFoundError, json.JSONDecodeError):
     musicas = []
 
@@ -40,7 +38,7 @@ def bubble_sort(lista):
 
 # Busca linear por name (substring)
 def busca_linear(lista, name):
-    ordenada = sorted(lista, key=lambda x: x.get("name", "").strip().lower())
+    ordenada =  bubble_sort(lista, key=lambda x: x.get("name", "").strip().lower())
     alvo = name.strip().lower()
     resultados = []
     for produto in ordenada:
@@ -51,7 +49,7 @@ def busca_linear(lista, name):
 
 # Busca binária por name (substring, lista ordenada por name)
 def busca_binaria(lista, name):
-    ordenada = sorted(lista, key=lambda x: x.get("name", "").strip().lower())
+    ordenada = bubble_sort(lista, key=lambda x: x.get("name", "").strip().lower())
     alvo = name.strip().lower()
     if not alvo:
         return []
