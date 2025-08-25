@@ -8,14 +8,14 @@
     {
         "nome": "Você",
         "artista": "Ian Monteiro",
-        "caminho_arquivo": "você.mp3",
+        "caminho_arquivo": "voce.mp3",
         "capa": "voce.jpg"
     },
     {
-        "nome": "Quando bate a saudade arregaça",
+        "nome": "Calor",
         "artista": "Ian Monteiro",
-        "caminho_arquivo": "frenesi.mp3",
-        "capa": "frenesi.jpg"
+        "caminho_arquivo": "calor.mp3",
+        "capa": "calor.jpg"
     },
     {
         "nome": "Frenesi",

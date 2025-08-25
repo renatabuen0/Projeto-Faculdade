@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produto: {{ product_name }}</title>
+    <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='logo.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+    <meta name="theme-color" content="#111111">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#111111">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="/static/style.css" rel="stylesheet">
 
@@ -12,9 +17,8 @@
 
 <body>
     <div class="container">
-        <nav class="breadcrumb">
-            <a href="/crafts">← Voltar para lista</a> / <span>{{ product_name }}</span>
-        </nav>
+        <div ><a href="{{ url_for('home') }}">Início</a> / <a href="{{ url_for('crafts') }}">Produtos</a></div>
+
         <div class="product-card">
             {% if not_found %}
             <div class="not-found">
