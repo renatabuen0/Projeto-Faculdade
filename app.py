@@ -60,14 +60,3 @@ def musicas_page():
         else:
             lista_atual=[]
     return render_template("musicas.html", musicas=lista_atual)
-@app.route("/croches")
-def croches_page():
-    lista_atual=list(croches)
-    nome_busca=request.args.get("nome_busca")
-    if nome_busca:
-        resultado=busca_linear(lista_atual, nome_busca)
-        if resultado:
-            lista_atual=[resultado]
-        else:
-            lista_atual=[]
-    return render_template("croches.html", croches=lista_atual)

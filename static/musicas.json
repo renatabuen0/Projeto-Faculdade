@@ -1,7 +1,32 @@
 [
-    {"nome": "Primeiro De Abril", "artista": "Ian Monteiro", "caminho_arquivo": "frenesi.mp3"},
-    {"nome": "Você", "artista": "Ian Monteiro", "caminho_arquivo": "você.mp3"},
-    {"nome": "Quando bate a saudade arregaça", "artista": "Ian Monteiro", "caminho_arquivo": "frenesi.mp3"},
-    {"nome": "Frenesi", "artista": "Ian Monteiro feat. KINA e Jotapê", "caminho_arquivo": "frenesi.mp3"},
-    {"nome": "Contramão", "artista": "Ian Monteiro feat. Lara Castello e Lessa", "caminho_arquivo": "contramao.mp3"}
+    {
+        "nome": "Primeiro De Abril",
+        "artista": "Ian Monteiro",
+        "caminho_arquivo": "frenesi.mp3",
+        "capa": "primeirodeabril.jpg"
+    },
+    {
+        "nome": "Você",
+        "artista": "Ian Monteiro",
+        "caminho_arquivo": "você.mp3",
+        "capa": "voce.jpg"
+    },
+    {
+        "nome": "Quando bate a saudade arregaça",
+        "artista": "Ian Monteiro",
+        "caminho_arquivo": "frenesi.mp3",
+        "capa": "frenesi.jpg"
+    },
+    {
+        "nome": "Frenesi",
+        "artista": "Ian Monteiro feat. KINA e Jotapê",
+        "caminho_arquivo": "frenesi.mp3",
+        "capa": "frenesi.jpg"
+    },
+    {
+        "nome": "Contramão",
+        "artista": "Ian Monteiro feat. Lara Castello e Lessa",
+        "caminho_arquivo": "contramao.mp3",
+        "capa": "contramao.jpg"
+    }
 ]

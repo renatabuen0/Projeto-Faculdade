@@ -1,31 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Músicas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Músicas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+  :root{
+    --bg:#000000;
+    --card:#1282a2;
+    --text:#fefcfb;
+    --muted:#8d99ae;
+    --accent:#1282a2;
+    --accent2:#034078;
+    --border:#001f54;
+    --shadow:#001f54;
+    --danger:#e63946;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{margin:0;font-family:inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);}  
+  a{color:inherit;text-decoration:none;}
+  .topbar{max-width:1000px;margin:24px auto 8px;padding:0 16px;display:flex;flex-direction:column;gap:8px;}
+  .title{font-size:2.2rem;margin:0;color:var(--accent);}  
+  .breadcrumb{font-size:.85rem;color:var(--muted);}  
+  .breadcrumb a{color:var(--accent);}
+  .hint{color:var(--muted);margin:4px 0 0;font-size:.85rem;}
+  form.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#011627;padding:12px 14px;border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 20px -4px rgba(0,0,0,.5);}  
+  form.controls input[type=text]{flex:2 1 220px;background:#02284a;border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:8px;font:inherit;outline:none;}
+  form.controls input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 2px #1282a233;}
+  form.controls select{flex:1 1 160px;background:#02284a;border:1px solid var(--border);color:var(--text);padding:10px;border-radius:8px;font:inherit;}
+  .btn{background:linear-gradient(90deg,var(--accent),var(--accent2));border:none;color:#fff;padding:10px 18px;border-radius:24px;cursor:pointer;font:600 0.95rem/1 inter;display:inline-flex;align-items:center;gap:6px;letter-spacing:.5px;}
+  .btn:hover{filter:brightness(1.1);}  
+  .btn:active{transform:translateY(1px);}  
+  .grid{max-width:1000px;margin:20px auto 70px;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
+  .card{background:var(--card);border:1px solid var(--border);box-shadow:0 8px 32px var(--shadow);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-height:260px;}
+  .cover-placeholder{background:linear-gradient(135deg,#02284a,#034078);width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem;letter-spacing:1px;text-transform:uppercase;}
+  .card-body{padding:14px 14px 16px;display:grid;gap:8px;}
+  .card-body h3{margin:0;font-size:1.15rem;line-height:1.2;}
+  .price{margin:0;font-weight:400;color:#e0fbfc;font-size:.9rem;}
+  audio{width:100%;height:38px;}
+  .empty{grid-column:1/-1;background:#02284a;border:1px dashed var(--border);padding:32px 24px;text-align:center;border-radius:14px;color:var(--muted);}  
+  .foot{max-width:1000px;margin:0 auto 40px;padding:0 16px;color:var(--muted);font-size:.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  .back-link{color:var(--accent);}
+  @media (prefers-color-scheme: light){body{background:#f5f9ff;color:#09121a;} .card{box-shadow:0 4px 18px -4px #001f54aa;} }
+  </style>
 </head>
 <body>
-    <h1>Minhas Músicas</h1>
-    <form action="/musicas" method="get">
-        <input type="text" name="nome_busca" placeholder="Buscar música...">
-        <button type="submit">Buscar</button>
+  <header class="topbar">
+    <div class="breadcrumb"><a href="{{ url_for('home') }}">Início</a> / Músicas</div>
+    <h1 class="title">Minhas Músicas</h1>
+    <form class="controls" method="get" action="{{ url_for('musicas') }}" role="search">
+      <input type="text" name="q" placeholder="Pesquisar por nome..." value="{{ q }}" aria-label="Pesquisar" />
+      <select name="metodo" aria-label="Método de busca">
+        <option value="linear" {% if metodo=='linear' %}selected{% endif %}>Busca Linear (substring)</option>
+        <option value="binaria" {% if metodo=='binaria' %}selected{% endif %}>Busca Binária (substring)</option>
+      </select>
+      <select name="ordenacao" aria-label="Ordenação">
+        <option value="nome_asc" {% if ordenacao=='nome_asc' %}selected{% endif %}>Nome A→Z</option>
+        <option value="nome_desc" {% if ordenacao=='nome_desc' %}selected{% endif %}>Nome Z→A</option>
+      </select>
+      <button class="btn" type="submit">Aplicar</button>
+      {% if q or metodo!='linear' or ordenacao!='nome_asc' %}
+        <a class="btn" style="background:#444;border:1px solid #666;" href="{{ url_for('musicas') }}" aria-label="Limpar filtros">Limpar</a>
+      {% endif %}
     </form>
-    <p><a href="/musicas?ordenar=sim">Ordenar por Nome (Bubble Sort)</a></p>
-    <ul>
+    <p class="hint">Resultados: <strong>{{ total }}</strong>{% if q %} • termo: <em>"{{ q }}"</em>{% endif %}</p>
+  </header>
+
+  <main>
+    <section class="grid" aria-label="Lista de músicas">
+      {% if musicas and musicas|length > 0 %}
         {% for musica in musicas %}
-            <li>
-                <strong>{{ musica.nome }}</strong> - {{ musica.artista }}
-                <br>
-                <audio controls>
-                    <source src="{{ url_for('static', filename='audio/' + musica.caminho_arquivo) }}" type="audio/mpeg">
-                    Seu navegador não suporta o áudio.
-                </audio>
-            </li>
+          <article class="card" aria-label="Música {{ musica.nome }}">
+            {% if musica.capa %}
+              <img 
+                src="{{ url_for('static', filename=musica.capa) }}" 
+                alt="Capa: {{ musica.nome }}" 
+                loading="lazy" 
+                class="cover"
+                onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-placeholder',textContent:'SEM CAPA'}));"
+              />
+            {% else %}
+              <div class="cover-placeholder">SEM CAPA</div>
+            {% endif %}
+            <div class="card-body">
+              <h3>{{ musica.nome }}</h3>
+              <p class="price">{{ musica.artista }}</p>
+              <audio controls preload="none">
+                <source src="{{ url_for('static', filename='audio/' ~ musica.caminho_arquivo) }}" type="audio/mpeg" />
+                Seu navegador não suporta o áudio.
+              </audio>
+            </div>
+          </article>
         {% endfor %}
-    </ul>
-    <a href="/">Voltar para página inicial</a>
-    
+      {% else %}
+        <div class="empty">Nenhuma música encontrada. Ajuste a busca ou limpe os filtros.</div>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer class="foot">
+    <a class="back-link" href="{{ url_for('home') }}">← Voltar</a>
+    <small>© <span id="year"></span> Músicas</small>
+  </footer>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 </body>
 </html>

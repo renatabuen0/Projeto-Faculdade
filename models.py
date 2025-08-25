@@ -12,6 +12,17 @@ except (FileNotFoundError, json.JSONDecodeError):
     produtos = []
 # (mantenha suas funções bubble_sort, busca_linear, busca_binaria como estão)
 
+#lista de musicas
+_musicas_path = Path(__file__).resolve().parent / "static" / "musicas.json"
+try:
+    with _musicas_path.open("r", encoding="utf-8") as f:
+        musicas = json.load(f)
+    if not isinstance(musicas, list):
+        musicas = []
+    
+    print(musicas)
+except (FileNotFoundError, json.JSONDecodeError):
+    musicas = []
 
 # Bubble sort por price
 def bubble_sort(lista):
