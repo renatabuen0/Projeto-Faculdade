@@ -49,7 +49,7 @@ def musicas_view():
 @app.route('/crafts')
 def crafts():
     q = request.args.get('q', '').strip()
-    metodo = request.args.get('metodo', 'linear')
+    metodo = request.args.get('metodo', 'linear') #linear padrao
     ordenacao = request.args.get('ordenacao', 'price_asc')
 
     base = list(produtos)

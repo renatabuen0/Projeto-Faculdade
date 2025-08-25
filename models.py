@@ -22,6 +22,8 @@ try:
 except (FileNotFoundError, json.JSONDecodeError):
     musicas = []
 
+
+
 def bubble_sort(lista, key=None, reverse=False):
     """Bubble sort simples.
     Se key não for fornecida e os itens forem dicts com 'price', usa esse campo por padrão.
@@ -49,36 +51,69 @@ def busca_linear(lista, termo, field="name"):
     termo = termo.strip().lower()
     if not termo:
         return []
-    return [item for item in lista if termo in str(item.get(field, "")).strip().lower()]
+    resultados = []
+    for item in lista:
+        valor = str(item.get(field, "")).strip().lower()
+        if termo in valor:
+            resultados.append(item)
+    return resultados
 
 def busca_binaria(lista, termo, field="name"):
-    """Busca por substring usando ordenação + localização binária + expansão lateral.
-    Retorna todas as ocorrências onde o campo contém o termo.
+    """
+    Busca itens cujo campo 'field' combina com o termo (case-insensitive).
+    
+    Estratégia:
+    - Usa busca binária para encontrar rapidamente todos os itens cujo campo começa
+      com o prefixo (termo). (Prefixo => região contígua em ordem lexicográfica)
+    - Se nenhum item começar com o prefixo, faz fallback para busca linear de
+      substring (termo em qualquer parte do campo).
+    
+    Parâmetros:
+    - lista: lista de dicionários (ex.: produtos, músicas)
+    - termo: string digitada pelo usuário (critério de busca)
+    - field: chave do dicionário a ser pesquisada (padrão: "name")
+    
+    Retorna:
+    - Lista de itens correspondentes.
     """
     termo = termo.strip().lower()
     if not termo:
-        return []
-    ordenada = sorted(lista, key=lambda x: str(x.get(field, "")).strip().lower())
+        return []  # Termo vazio => nada a retornar
+
+    # 1. Criar uma cópia ordenada da lista pelo campo alvo (case-insensitive)
+    #    Usamos bubble_sort já existente para manter consistência.
+    ordenada = bubble_sort(
+        list(lista),
+        key=lambda x: str(x.get(field, "")).strip().lower()
+    )
     nomes = [str(x.get(field, "")).strip().lower() for x in ordenada]
-    lo, hi = 0, len(nomes) - 1
-    found = -1
-    while lo <= hi:
-        mid = (lo + hi) // 2
-        val = nomes[mid]
-        if termo in val:
-            found = mid
-            break
-        if val < termo:
-            lo = mid + 1
-        else:
-            hi = mid - 1
-    if found == -1:
+    n = len(nomes)
+    if n == 0:
         return []
-    res = [ordenada[found]]
-    i = found - 1
-    while i >= 0 and termo in nomes[i]:
-        res.insert(0, ordenada[i]); i -= 1
-    i = found + 1
-    while i < len(nomes) and termo in nomes[i]:
-        res.append(ordenada[i]); i += 1
-    return res
+
+    # 2. Busca binária para achar a primeira posição onde nomes[i] >= termo
+    esquerda, direita = 0, n
+    while esquerda < direita:
+        meio = (esquerda + direita) // 2
+        if nomes[meio] < termo:
+            esquerda = meio + 1
+        else:
+            direita = meio
+    inicio_prefixo = esquerda  # possível início dos que têm o prefixo
+
+    # 3. Coletar todos os itens consecutivos que começam com o prefixo
+    resultados = []
+    indice = inicio_prefixo
+    while indice < n:
+        nome = nomes[indice]
+        if nome.startswith(termo):
+            resultados.append(ordenada[indice])
+            indice += 1
+        else:
+            break  # Sai ao primeiro que não corresponde (região contígua acabou)
+
+    if resultados:
+        return resultados  # Encontrou via prefixo (mais eficiente)
+    
+    # 4. Fallback: usar busca_linear (substring em qualquer posição)
+    return busca_linear(lista, termo, field=field)

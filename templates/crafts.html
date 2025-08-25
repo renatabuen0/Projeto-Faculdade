@@ -24,7 +24,7 @@
         <h1 class="title">Crafts</h1>
 
         <form class="controls" method="get" action="{{ url_for('crafts') }}">
-            <input type="text" name="q" placeholder="Pesquisar por name..." value="{{ q }}">
+            <input type="text" name="q" placeholder="Pesquisar por nome..." value="{{ q }}">
             <select name="metodo" aria-label="Método de busca">
                 <option value="linear" {% if metodo=='linear' %}selected{% endif %}>Busca Linear (exato)</option>
                 <option value="binaria" {% if metodo=='binaria' %}selected{% endif %}>Busca Binária (exato)</option>
@@ -35,7 +35,7 @@
                 <option value="name_asc" {% if ordenacao=='name_asc' %}selected{% endif %}>name A→Z</option>
                 <option value="name_desc" {% if ordenacao=='name_desc' %}selected{% endif %}>name Z→A</option>
             </select>
-            <button type="submit">Aplicar</button>
+            <button class="btn" type="submit">Aplicar</button>
         </form>
 
         <p class="hint">
@@ -59,7 +59,7 @@
         </a>
         {% endfor %}
         {% else %}
-        <p class="empty">Nada encontrado. Tente o name completo (match exato) ou mude o método.</p>
+        <p class="empty">Nada encontrado. Tente o nome completo (match exato) ou mude o método.</p>
         {% endif %}
     </main>
 
