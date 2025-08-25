@@ -45,13 +45,14 @@ nav a:hover {
     text-decoration: underline;
 }
 
-.logo-video{
-  width: clamp(140px, 18vw, 260px);
-  height:auto;
-  display:block;
-  margin:0 auto;
-  pointer-events:none;         /* evita clique acidental */
-  /* opcional: brilho sutil
+.logo-video {
+    width: clamp(140px, 18vw, 260px);
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    pointer-events: none;
+    /* evita clique acidental */
+    /* opcional: brilho sutil
   filter: drop-shadow(0 0 12px rgba(255,255,255,.06));
   */
 }
@@ -230,8 +231,13 @@ a {
     margin-bottom: 24px;
 }
 
+header {
+    max-width: 1400px;
+    margin: 24px auto 8px;
+}
+
 .topbar {
-    max-width: 1000px;
+    max-width: 1400px;
     margin: 24px auto 8px;
     padding: 0 16px;
     display: flex;
@@ -310,11 +316,11 @@ form.controls select {
 }
 
 .grid {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 20px auto 70px;
     padding: 0 16px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 16px;
 }
 
@@ -328,6 +334,8 @@ form.controls select {
     flex-direction: column;
     min-height: 260px;
     text-decoration: none;
+    width: 300px;
+    height: 300px;
 }
 
 a {

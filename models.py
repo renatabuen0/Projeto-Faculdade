@@ -22,66 +22,63 @@ try:
 except (FileNotFoundError, json.JSONDecodeError):
     musicas = []
 
-# Bubble sort por price
-def bubble_sort(lista):
+def bubble_sort(lista, key=None, reverse=False):
+    """Bubble sort simples.
+    Se key não for fornecida e os itens forem dicts com 'price', usa esse campo por padrão.
+    Retorna a lista ordenada (in-place)."""
+    if key is None:
+        if lista and isinstance(lista[0], dict) and 'price' in lista[0]:
+            key = lambda x: float(x.get('price', 0) or 0)
+        else:
+            key = lambda x: x  # identidade
     n = len(lista)
     for i in range(n):
-        trocou = False
+        swapped = False
         for j in range(0, n - i - 1):
-            if float(lista[j].get("price", 0)) > float(lista[j + 1].get("price", 0)):
+            a = key(lista[j]); b = key(lista[j + 1])
+            if (a > b and not reverse) or (a < b and reverse):
                 lista[j], lista[j + 1] = lista[j + 1], lista[j]
-                trocou = True
-        if not trocou:
+                swapped = True
+        if not swapped:
             break
     return lista
 
 
-# Busca linear por name (substring)
-def busca_linear(lista, name):
-    ordenada =  bubble_sort(lista, key=lambda x: x.get("name", "").strip().lower())
-    alvo = name.strip().lower()
-    resultados = []
-    for produto in ordenada:
-        nome_produto = produto.get("name", "").strip().lower()
-        if alvo in nome_produto:
-            resultados.append(produto)
-    return resultados
-
-# Busca binária por name (substring, lista ordenada por name)
-def busca_binaria(lista, name):
-    ordenada = bubble_sort(lista, key=lambda x: x.get("name", "").strip().lower())
-    alvo = name.strip().lower()
-    if not alvo:
+def busca_linear(lista, termo, field="name"):
+    """Retorna itens cujo campo contém 'termo' (substring, case-insensitive)."""
+    termo = termo.strip().lower()
+    if not termo:
         return []
-    low, high = 0, len(ordenada) - 1
+    return [item for item in lista if termo in str(item.get(field, "")).strip().lower()]
+
+def busca_binaria(lista, termo, field="name"):
+    """Busca por substring usando ordenação + localização binária + expansão lateral.
+    Retorna todas as ocorrências onde o campo contém o termo.
+    """
+    termo = termo.strip().lower()
+    if not termo:
+        return []
+    ordenada = sorted(lista, key=lambda x: str(x.get(field, "")).strip().lower())
+    nomes = [str(x.get(field, "")).strip().lower() for x in ordenada]
+    lo, hi = 0, len(nomes) - 1
     found = -1
-    while low <= high:
-        mid = (low + high) // 2
-        mid_name = ordenada[mid].get("name", "").strip().lower()
-        if alvo in mid_name:
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        val = nomes[mid]
+        if termo in val:
             found = mid
             break
-        if mid_name < alvo:
-            low = mid + 1
+        if val < termo:
+            lo = mid + 1
         else:
-            high = mid - 1
+            hi = mid - 1
     if found == -1:
         return []
-    resultados = []
-    i = found
-    while i >= 0:
-        nome = ordenada[i].get("name", "").strip().lower()
-        if alvo in nome:
-            resultados.insert(0, ordenada[i])
-            i -= 1
-        else:
-            break
+    res = [ordenada[found]]
+    i = found - 1
+    while i >= 0 and termo in nomes[i]:
+        res.insert(0, ordenada[i]); i -= 1
     i = found + 1
-    while i < len(ordenada):
-        nome = ordenada[i].get("name", "").strip().lower()
-        if alvo in nome:
-            resultados.append(ordenada[i])
-            i += 1
-        else:
-            break
-    return resultados
+    while i < len(nomes) and termo in nomes[i]:
+        res.append(ordenada[i]); i += 1
+    return res
