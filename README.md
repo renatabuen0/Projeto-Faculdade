@@ -1,10 +1,11 @@
 # Aplicação de busca linear/binária com bubble sort - ESTRUTURA DE DADOS
 # Renata Cibelle / Ian Monteiro 
 
-#Os sete casos do gráfico de Big-O
+# Os sete casos do gráfico de Big-O
 https://colab.research.google.com/drive/1VhsHbQ6Je1qntE3dovoQyAdNI6zxsI2_?usp=sharing
-Aplicação Flask didática que demonstra:
 
+
+Aplicação Flask didática que demonstra:
 - Carregamento de dados estruturados (JSON)
 - Ordenação customizada (Bubble Sort) para reforçar conceitos de algoritmos
 - Busca linear (substring, case-insensitive)
