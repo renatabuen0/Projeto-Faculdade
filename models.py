@@ -78,9 +78,9 @@ def busca_binaria(lista, termo, field="name"):
     """
     termo = termo.strip().lower()
     if not termo:
-        return []  # Termo vazio => nada a retornar
+        return [] 
 
-    # 1. Criar uma cópia ordenada da lista pelo campo alvo (case-insensitive)
+    # Criar uma cópia ordenada da lista pelo campo alvo
     #    Usamos bubble_sort já existente para manter consistência.
     ordenada = bubble_sort(
         list(lista),
@@ -91,7 +91,7 @@ def busca_binaria(lista, termo, field="name"):
     if n == 0:
         return []
 
-    # 2. Busca binária para achar a primeira posição onde nomes[i] >= termo
+    #Busca binária para achar a primeira posição onde nomes[i] >= termo
     esquerda, direita = 0, n
     while esquerda < direita:
         meio = (esquerda + direita) // 2
@@ -101,7 +101,7 @@ def busca_binaria(lista, termo, field="name"):
             direita = meio
     inicio_prefixo = esquerda  # possível início dos que têm o prefixo
 
-    # 3. Coletar todos os itens consecutivos que começam com o prefixo
+    #Coletar todos os itens consecutivos que começam com o prefixo
     resultados = []
     indice = inicio_prefixo
     while indice < n:

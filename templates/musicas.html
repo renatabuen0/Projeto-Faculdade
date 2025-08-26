@@ -20,17 +20,25 @@
 
 <body>
   <header class="topbar">
-    <div class="breadcrumb"><a href="{{ url_for('home') }}">Início</a> / Músicas</div>
+    <div class="breadcrumb">
+      <a href="{{ url_for('home') }}">Início</a>
+      / Músicas
+    </div>
     <h1 class="title">Minhas Músicas</h1>
-    <form class="controls" method="get" action="{{ url_for('musicas') }}" role="search"> <input type="text" name="q"
-        placeholder="Pesquisar por nome..." value="{{ q }}" aria-label="Pesquisar" /> <select name="metodo"
-        aria-label="Método de busca">
-        <option value="linear" {% if metodo=='linear' %}selected{% endif %}>Busca Linear (substring)</option>
+    <form class="controls" method="get" action="{{ url_for('musicas') }}" role="search">
+      <input type="text" name="q" placeholder="Pesquisar por nome..." value="{{ q }}" aria-label="Pesquisar" />
+      <select name="metodo" aria-label="Método de busca">
+        <option value="linear"
+        {% if metodo=='linear' %}selected{% endif %}
+        >Busca Linear (substring)</option>
         <option value="binaria" {% if metodo=='binaria' %}selected{% endif %}>Busca Binária (substring)</option>
-      </select> <select name="ordenacao" aria-label="Ordenação">
+      </select>
+      <select name="ordenacao" aria-label="Ordenação">
         <option value="nome_asc" {% if ordenacao=='nome_asc' %}selected{% endif %}>Nome A→Z</option>
         <option value="nome_desc" {% if ordenacao=='nome_desc' %}selected{% endif %}>Nome Z→A</option>
-      </select> <button class="btn" type="submit">Aplicar</button> {% if q or metodo!='linear' or ordenacao!='nome_asc'
+      </select>
+      <button class="btn" type="submit">Aplicar</button>
+      {% if q or metodo!='linear' or ordenacao!='nome_asc'
       %} <a class="btn" style="background:#ddd;color:#333;border:1px solid #666;" href="{{ url_for('musicas') }}"
         aria-label="Limpar filtros">Limpar</a> {% endif %} </form>
     <p class="hint">Resultados: <strong>{{ total }}</strong>{% if q %} • termo: <em>"{{ q }}"</em>{% endif %}</p>
@@ -62,6 +70,7 @@
     const trackArtist = document.getElementById('trackArtist');
     const progress = document.getElementById('progress');
     let currentTrack = null;
+
     cards.forEach(card => {
       card.addEventListener('click', () => {
         const src = card.dataset.src;
